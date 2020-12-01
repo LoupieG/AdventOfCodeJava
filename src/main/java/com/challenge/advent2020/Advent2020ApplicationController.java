@@ -19,11 +19,13 @@ public class Advent2020ApplicationController {
 
    @RequestMapping(value="/day1", method = RequestMethod.GET)
    public ResponseEntity<List<String>> day1() {
-      return new ResponseEntity<>(Day1.getDay1(), HttpStatus.OK);
+      Day1 problem = new Day1("target/classes/inputs/day1input.txt");
+      return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
    @RequestMapping(value="/day2", method = RequestMethod.GET)
    public ResponseEntity<List<String>> day2() {
-      return new ResponseEntity<>(Day2.getDay2(), HttpStatus.OK);
+      Day2 problem = new Day2("target/classes/inputs/day2input.txt");
+      return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 }
