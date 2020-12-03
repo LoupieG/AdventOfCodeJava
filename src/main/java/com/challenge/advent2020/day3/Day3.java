@@ -1,6 +1,5 @@
 package com.challenge.advent2020.day3;
 
-import com.challenge.advent2020.Advent2020ApplicationController;
 import com.challenge.advent2020.Day;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +12,14 @@ import java.util.*;
 import java.util.List;
 
 public class Day3 implements Day {
-   private static final Logger                       logger    = LoggerFactory.getLogger(Advent2020ApplicationController.class);
-   private static final Dictionary<Point, Character> inputData = new Hashtable<>();
+   private static final Logger                       logger    = LoggerFactory.getLogger(Day3.class);
+   private static final HashMap<Point, Character> inputData = new HashMap<>();
 
-   private static int maxX = 0;
-   private static int maxY = 0;
+   private int maxX = 0;
+   private int maxY = 0;
 
    public Day3(String filePath) {
-      try {
-         BufferedReader reader = new BufferedReader(new FileReader(filePath));
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
          String line;
          int xCoord = 0;
          int yCoord = 0;
@@ -69,13 +67,13 @@ public class Day3 implements Day {
       return "Part B answer: " + (slope1 * slope2 * slope3 * slope4 * slope5);
    }
 
-   private static int countTrees(int xMove, int yMove) {
+   private int countTrees(int xMove, int yMove) {
       int result = 0;
 
       int xCoord = 0;
       int yCoord = 0;
 
-      while ((xCoord + 1) < maxX) {
+      while ((xCoord + xMove) < maxX) {
          xCoord += xMove;
          yCoord = ((yCoord + yMove) >= maxY) ? ( (yCoord + yMove) - (maxY - 1) - 1) : yCoord + yMove;
          if (inputData.get(new Point(xCoord, yCoord)) == '#') {

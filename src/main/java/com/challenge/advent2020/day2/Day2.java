@@ -1,6 +1,5 @@
 package com.challenge.advent2020.day2;
 
-import com.challenge.advent2020.Advent2020ApplicationController;
 import com.challenge.advent2020.Day;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,20 +13,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day2 implements Day {
-   private static final Logger         logger = LoggerFactory.getLogger(Advent2020ApplicationController.class);
-   private static       List<Password> inputData;
+   private static final Logger         logger    = LoggerFactory.getLogger(Day2.class);
+   private static final List<Password> inputData = new ArrayList<>();
 
    private static class Password {
       int low;
       int high;
       char value;
-      String password;
+      String pass;
    }
 
    public Day2(String filePath) {
-      try {
-         inputData = new ArrayList<>();
-         BufferedReader reader = new BufferedReader(new FileReader(filePath));
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
          String line;
          while ((line = reader.readLine()) != null) {
             String regex = "(\\d+)-(\\d+) (\\w): ([a-z]+)";
@@ -41,11 +38,10 @@ public class Day2 implements Day {
             record.low = Integer.parseInt(matcher.group(1));
             record.high = Integer.parseInt(matcher.group(2));
             record.value = matcher.group(3).charAt(0);
-            record.password = matcher.group(4);
+            record.pass = matcher.group(4);
 
             inputData.add(record);
          }
-
       }
       catch (IOException ex) {
          logger.error("Could not access the file {}", filePath);
@@ -68,7 +64,7 @@ public class Day2 implements Day {
       int validPassword = 0;
 
       for (Password record : inputData) {
-         long charCount = record.password.codePoints().filter(ch -> ch == record.value).count();
+         long charCount = record.pass.codePoints().filter(ch -> ch == record.value).count();
          if (charCount >= record.low && charCount <= record.high) {
             ++validPassword;
          }
@@ -82,9 +78,9 @@ public class Day2 implements Day {
       int validPassword = 0;
       for (Password record : inputData) {
 
-         if ((record.password.charAt(record.low - 1) == record.value ||
-                 record.password.charAt(record.high - 1) == record.value) &&
-                 record.password.charAt(record.low - 1) != record.password.charAt(record.high - 1)) {
+         if ((record.pass.charAt(record.low - 1) == record.value ||
+                 record.pass.charAt(record.high - 1) == record.value) &&
+                 record.pass.charAt(record.low - 1) != record.pass.charAt(record.high - 1)) {
                ++validPassword;
          }
       }
