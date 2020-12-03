@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day2 implements Day {
-   private static final Logger       logger = LoggerFactory.getLogger(Advent2020ApplicationController.class);
+   private static final Logger         logger = LoggerFactory.getLogger(Advent2020ApplicationController.class);
    private static       List<Password> inputData;
 
    private static class Password {
@@ -73,8 +73,7 @@ public class Day2 implements Day {
             ++validPassword;
          }
       }
-      result.append(validPassword);
-      return result.toString();
+      return result.append(validPassword).toString();
    }
 
    @Override
@@ -89,7 +88,6 @@ public class Day2 implements Day {
                ++validPassword;
          }
       }
-      result.append(validPassword);
-      return result.toString();
+      return result.append(validPassword).toString();
    }
 }
