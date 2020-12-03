@@ -76,10 +76,9 @@ public class Day3 implements Day {
       int yCoord = 0;
 
       while ((xCoord + 1) < maxX) {
-         xCoord = xCoord + xMove;
+         xCoord += xMove;
          yCoord = ((yCoord + yMove) >= maxY) ? ( (yCoord + yMove) - (maxY - 1) - 1) : yCoord + yMove;
-         Point xy = new Point(xCoord, yCoord);
-         if (inputData.get(xy) == '#') {
+         if (inputData.get(new Point(xCoord, yCoord)) == '#') {
             ++result;
          }
       }
