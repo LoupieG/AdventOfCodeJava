@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.List;
 
 public class Day3 implements Day {
-   private static final Logger                       logger    = LoggerFactory.getLogger(Day3.class);
+   private static final Logger                    logger    = LoggerFactory.getLogger(Day3.class);
    private static final HashMap<Point, Character> inputData = new HashMap<>();
 
    private int maxX = 0;
@@ -21,11 +21,12 @@ public class Day3 implements Day {
    public Day3(String filePath) {
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
          String line;
-         int xCoord = 0;
-         int yCoord = 0;
+         var    xCoord = 0;
+         var    yCoord = 0;
+
          while ((line = reader.readLine()) != null) {
             for (yCoord = 0; yCoord < line.length(); ++yCoord) {
-               Point point = new Point(xCoord, yCoord);
+               var point = new Point(xCoord, yCoord);
                inputData.put(point, line.charAt(yCoord));
             }
             ++xCoord;
@@ -58,24 +59,23 @@ public class Day3 implements Day {
    @Override
    public String partB() {
 
-      int slope1 = countTrees(1, 1);
-      int slope2 = countTrees(1, 3);
-      int slope3 = countTrees(1, 5);
-      int slope4 = countTrees(1, 7);
-      int slope5 = countTrees(2, 1);
+      var slope1 = countTrees(1, 1);
+      var slope2 = countTrees(1, 3);
+      var slope3 = countTrees(1, 5);
+      var slope4 = countTrees(1, 7);
+      var slope5 = countTrees(2, 1);
 
       return "Part B answer: " + (slope1 * slope2 * slope3 * slope4 * slope5);
    }
 
    private int countTrees(int xMove, int yMove) {
-      int result = 0;
-
-      int xCoord = 0;
-      int yCoord = 0;
+      var result = 0;
+      var xCoord = 0;
+      var yCoord = 0;
 
       while ((xCoord + xMove) < maxX) {
          xCoord += xMove;
-         yCoord = ((yCoord + yMove) >= maxY) ? ( (yCoord + yMove) - (maxY - 1) - 1) : yCoord + yMove;
+         yCoord = ((yCoord + yMove) >= maxY) ? ((yCoord + yMove) - (maxY - 1) - 1) : yCoord + yMove;
          if (inputData.get(new Point(xCoord, yCoord)) == '#') {
             ++result;
          }

@@ -1,4 +1,4 @@
-package com.challenge.advent2020.day4;
+package com.challenge.advent2020.day5;
 
 import com.challenge.advent2020.Day;
 import org.slf4j.Logger;
@@ -10,11 +10,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day4 implements Day {
-   private static final Logger       logger = LoggerFactory.getLogger(Day4.class);
+public class Day5 implements Day {
+   private static final Logger       logger = LoggerFactory.getLogger(Day5.class);
    private              List<String> inputData;
 
-   public Day4(String filePath) {
+   public Day5(String filePath) {
       try {
          inputData = Files.readAllLines(Paths.get(filePath));
       }
@@ -25,11 +25,12 @@ public class Day4 implements Day {
    }
 
    public List<String> solve() {
-      var result = new ArrayList<String>();
+      List<String> result = new ArrayList<>();
 
       result.add(partA());
-      result.add(partB());
+      result.add(partA());
 
       return result;
    }
+
 }

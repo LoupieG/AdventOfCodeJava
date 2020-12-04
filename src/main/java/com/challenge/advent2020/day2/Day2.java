@@ -9,17 +9,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day2 implements Day {
    private static final Logger         logger    = LoggerFactory.getLogger(Day2.class);
-   private static final List<Password> inputData = new ArrayList<>();
+   private final        List<Password> inputData = new ArrayList<>();
 
    private static class Password {
-      int low;
-      int high;
-      char value;
+      int    low;
+      int    high;
+      char   value;
       String pass;
    }
 
@@ -27,9 +26,9 @@ public class Day2 implements Day {
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
          String line;
          while ((line = reader.readLine()) != null) {
-            String regex = "(\\d+)-(\\d+) (\\w): ([a-z]+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(line);
+            var regex   = "(\\d+)-(\\d+) (\\w): ([a-z]+)";
+            var pattern = Pattern.compile(regex);
+            var matcher = pattern.matcher(line);
 
             matcher.find();
 
@@ -60,8 +59,8 @@ public class Day2 implements Day {
 
    @Override
    public String partA() {
-      StringBuilder result = new StringBuilder("Part A answer: ");
-      int validPassword = 0;
+      StringBuilder result        = new StringBuilder("Part A answer: ");
+      int           validPassword = 0;
 
       for (Password record : inputData) {
          long charCount = record.pass.codePoints().filter(ch -> ch == record.value).count();
@@ -74,14 +73,14 @@ public class Day2 implements Day {
 
    @Override
    public String partB() {
-      StringBuilder result = new StringBuilder("Part B answer: ");
-      int validPassword = 0;
+      StringBuilder result        = new StringBuilder("Part B answer: ");
+      int           validPassword = 0;
       for (Password record : inputData) {
 
          if ((record.pass.charAt(record.low - 1) == record.value ||
                  record.pass.charAt(record.high - 1) == record.value) &&
                  record.pass.charAt(record.low - 1) != record.pass.charAt(record.high - 1)) {
-               ++validPassword;
+            ++validPassword;
          }
       }
       return result.append(validPassword).toString();

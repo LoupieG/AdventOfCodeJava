@@ -36,16 +36,17 @@ public class Day1 implements Day {
    @Override
    public String partB() {
       StringBuilder result = new StringBuilder("Part B answer: ");
-      for (int index = 0; index < inputData.size() / 2; ++index) {
-         int left = Integer.parseInt(inputData.get(index));
-         for (int m = index + 1; m < inputData.size() - 2; ++m) {
-            int middle = Integer.parseInt(inputData.get(m));
+      var found = false;
+      for (var index = 0; (index < inputData.size() / 2) && !found ; ++index) {
+         var left = Integer.parseInt(inputData.get(index));
+         for (var m = index + 1; m < inputData.size() - 2; ++m) {
+            var middle = Integer.parseInt(inputData.get(m));
 
-            for (int r = m + 1; r < inputData.size(); ++r) {
-               int right = Integer.parseInt(inputData.get(r));
+            for (var r = m + 1; r < inputData.size(); ++r) {
+               var right = Integer.parseInt(inputData.get(r));
                if (left + middle + right == 2020) {
                   result.append(left * middle * right);
-                  index = inputData.size();
+                  found = true;
                   break;
                }
             }
@@ -57,13 +58,14 @@ public class Day1 implements Day {
    @Override
    public String partA() {
       StringBuilder result = new StringBuilder("Part A answer: ");
-      for (int index = 0; index < inputData.size() / 2; ++index) {
-         int left = Integer.parseInt(inputData.get(index));
-         for (int test = index + 1; test < inputData.size(); ++test) {
-            int right = Integer.parseInt(inputData.get(test));
+      var found = false;
+      for (var index = 0; !found && (index < inputData.size() / 2); ++index) {
+         var left = Integer.parseInt(inputData.get(index));
+         for (var test = index + 1; test < inputData.size(); ++test) {
+            var right = Integer.parseInt(inputData.get(test));
             if (left + right == 2020) {
                result.append(left * right);
-               index = inputData.size();
+               found = true;
                break;
             }
          }
