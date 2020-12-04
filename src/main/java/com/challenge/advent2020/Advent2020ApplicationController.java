@@ -23,64 +23,69 @@ import java.util.List;
 public class Advent2020ApplicationController {
    Logger    logger      = LoggerFactory.getLogger(Advent2020ApplicationController.class);
    LocalDate currentDate = LocalDate.now();
-   private static final String USER_DIR  = "user.dir";
+   private static final String USER_DIR  = System.getProperty("user.dir") + "/";
    private static final String AOC_TOKEN = "/Users/kmurray/.aoc/token";
 
    DataGrabber dataGrabber = new DataGrabber(AOC_TOKEN);
 
    @GetMapping(value = "/day1")
    public ResponseEntity<List<String>> day1() {
-      String filename = System.getProperty(USER_DIR) + "/target/classes/inputs/day1input.txt";
+      String inputFile = "target/classes/inputs/day1input.txt";
+      String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 1);
       }
-      var problem = new Day1("target/classes/inputs/day1input.txt");
+      var problem = new Day1(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
    @GetMapping(value = "/day2")
    public ResponseEntity<List<String>> day2() {
-      String filename = System.getProperty(USER_DIR) + "/target/classes/inputs/day2input.txt";
+      String inputFile = "target/classes/inputs/day2input.txt";
+      String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 2);
       }
-      var problem = new Day2("target/classes/inputs/day2input.txt");
+      var problem = new Day2(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
    @GetMapping(value = "/day3")
    public ResponseEntity<List<String>> day3() {
-      String filename = System.getProperty(USER_DIR) + "/target/classes/inputs/day3input.txt";
+      String inputFile = "target/classes/inputs/day3input.txt";
+      String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 3);
       }
 
-      var problem = new Day3("target/classes/inputs/day3input.txt");
+      var problem = new Day3(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
    @GetMapping(value = "/day4")
    public ResponseEntity<List<String>> day4() {
-      String filename = System.getProperty(USER_DIR) + "/target/classes/inputs/day4input.txt";
+      String inputFile = "target/classes/inputs/day4input.txt";
+      String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 4);
       }
-      var problem = new Day4("target/classes/inputs/day4input.txt");
+      var problem = new Day4(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
    @GetMapping(value = "/day5")
    public ResponseEntity<List<String>> day5() {
-      String filename = System.getProperty(USER_DIR) + "/target/classes/inputs/day5input.txt";
+      String inputFile = "target/classes/inputs/day5input.txt";
+      String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 5);
       }
-      var problem = new Day5("target/classes/inputs/day5input.txt");
+      var problem = new Day5(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 
