@@ -1,8 +1,8 @@
 package com.challenge.advent2020.day4;
 
-import java.util.regex.Pattern;
-
-import static com.utilities.Numbers.isPositiveInteger;
+import static com.utilities.Numbers.isBetween;
+import static com.utilities.Numbers.isInteger;
+import static com.utilities.Strings.matchesPattern;
 
 public class Passport {
    int    byr;
@@ -42,15 +42,15 @@ public class Passport {
    }
 
    private boolean validByr() {
-      return (byr >= 1920 && byr <= 2002);
+      return isBetween(byr, 1920,2002);
    }
 
    private boolean validIyr() {
-      return (iyr >= 2010 && iyr <= 2020);
+      return isBetween(iyr, 2010 ,2020);
    }
 
    private boolean validEyr() {
-      return (eyr >= 2020 && eyr <= 2030);
+      return isBetween(eyr, 2020, 2030);
    }
 
    private boolean validEcl() {
@@ -69,16 +69,13 @@ public class Passport {
       boolean result = false;
 
       if (hcl != null) {
-         var regex   = "^#[a-f0-9]{2,7}$";
-         var pattern = Pattern.compile(regex);
-         var matcher = pattern.matcher(hcl);
-         result = matcher.matches();
+         result = matchesPattern(hcl, "^#[a-f0-9]{2,7}$");
       }
       return result;
    }
 
    private boolean validPid() {
-      return (pid != null && pid.length() == 9 && isPositiveInteger(pid));
+      return (pid != null && pid.length() == 9 && isInteger(pid));
    }
 
 
@@ -89,13 +86,13 @@ public class Passport {
       if (hgt != null) {
          if (hgt.contains("in")) {
             value = getMeasurement("in");
-            if (value >= 59 && value <= 76) {
+            if (isBetween(value,59,76)) {
                result = true;
             }
          }
          else if (hgt.contains("cm")) {
             value = getMeasurement("cm");
-            if (value >= 150 && value <= 193) {
+            if (isBetween(value,150,193)) {
                result = true;
             }
          }
@@ -113,11 +110,9 @@ public class Passport {
          number.append(hgt.charAt(index));
       }
 
-      if (isPositiveInteger(number.toString())) {
+      if (isInteger(number.toString())) {
          result = Integer.parseInt(number.toString());
       }
       return result;
    }
-
-
 }

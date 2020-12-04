@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utilities.Numbers.isPositiveInteger;
+import static com.utilities.Numbers.isInteger;
+import static com.utilities.Numbers.parseInteger;
 
 public class Day4 implements Day {
    private static final Logger         logger = LoggerFactory.getLogger(Day4.class);
@@ -46,18 +47,18 @@ public class Day4 implements Day {
 
          switch (part[0]) {
             case "byr":
-               if (isPositiveInteger(part[1])) {
-                  passport.byr = Integer.parseInt(part[1]);
+               if (isInteger(part[1])) {
+                  passport.byr = parseInteger(part[1]);
                }
                break;
             case "iyr":
-               if (isPositiveInteger(part[1])) {
-                  passport.iyr = Integer.parseInt(part[1]);
+               if (isInteger(part[1])) {
+                  passport.iyr = parseInteger(part[1]);
                }
                break;
             case "eyr":
-               if (isPositiveInteger(part[1])) {
-                  passport.eyr = Integer.parseInt(part[1]);
+               if (isInteger(part[1])) {
+                  passport.eyr = parseInteger(part[1]);
                }
                break;
             case "hgt":

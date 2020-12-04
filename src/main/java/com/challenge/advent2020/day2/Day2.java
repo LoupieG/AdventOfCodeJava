@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static com.utilities.Numbers.parseInteger;
+
 public class Day2 implements Day {
    private static final Logger         logger    = LoggerFactory.getLogger(Day2.class);
    private final        List<Password> inputData = new ArrayList<>();
@@ -30,12 +32,13 @@ public class Day2 implements Day {
             var pattern = Pattern.compile(regex);
             var matcher = pattern.matcher(line);
 
+            //noinspection ResultOfMethodCallIgnored
             matcher.find();
 
             Password record = new Password();
 
-            record.low = Integer.parseInt(matcher.group(1));
-            record.high = Integer.parseInt(matcher.group(2));
+            record.low = parseInteger(matcher.group(1));
+            record.high = parseInteger(matcher.group(2));
             record.value = matcher.group(3).charAt(0);
             record.pass = matcher.group(4);
 
