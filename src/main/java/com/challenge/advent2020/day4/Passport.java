@@ -84,7 +84,7 @@ public class Passport {
 
    private boolean validHgt() {
       boolean result = false;
-      int     value  = 0;
+      int     value;
 
       if (hgt != null) {
          if (hgt.contains("in")) {
