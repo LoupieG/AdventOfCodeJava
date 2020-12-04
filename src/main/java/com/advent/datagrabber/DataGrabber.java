@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataGrabber {
-   private static List<String>       cookies = new ArrayList<>();
-   private        HttpsURLConnection conn;
-   private static String             cookieLocation;
-   private        String             outputFile;
+   private final List<String>       cookies = new ArrayList<>();
+   private       HttpsURLConnection conn;
+   private final String             cookieLocation;
+   private       String             outputFile;
 
    public DataGrabber(String session) {
       cookieLocation = session;
@@ -47,11 +47,11 @@ public class DataGrabber {
 
          //We don't want to overwrite the data if it already exists
          if (resultFile.createNewFile()) {
-            FileWriter fileWriter = new FileWriter(outputFile);
-            for (String line : data) {
-               fileWriter.write(line + "\n");
+            try (FileWriter fileWriter = new FileWriter(outputFile)) {
+               for (String line : data) {
+                  fileWriter.write(line + "\n");
+               }
             }
-            fileWriter.close();
          }
       }
       catch (Exception ex) {
