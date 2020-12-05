@@ -80,6 +80,7 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day5")
    public ResponseEntity<List<String>> day5() {
       String inputFile = "target/classes/inputs/day5input.txt";
+      //String inputFile = "target/classes/inputs/testData.txt";
       String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
