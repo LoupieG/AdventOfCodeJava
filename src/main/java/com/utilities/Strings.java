@@ -1,5 +1,9 @@
 package com.utilities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Strings {
@@ -15,5 +19,26 @@ public class Strings {
 
    public static boolean stringContains(StringBuilder line, Character ch) {
       return line.indexOf(ch.toString()) > -1;
+   }
+
+   public static <T> Set<T> intersection(Set<T> list1, Set<T> list2) {
+      Set<T> list = new HashSet<>();
+
+      for (T t : list1) {
+         if (list2.contains(t)) {
+            list.add(t);
+         }
+      }
+      return list;
+   }
+
+   public static List<String> getStringArray(String question) {
+      List<String> result = new ArrayList<>();
+
+      for (int index = 0; index < question.length(); ++index) {
+         result.add(String.valueOf(question.charAt(index)));
+      }
+
+      return result;
    }
 }

@@ -9,38 +9,48 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import static com.utilities.Strings.getStringArray;
 import static com.utilities.Strings.stringContains;
+import static com.utilities.Strings.intersection;
 
 public class Day6 implements Day {
    private static final Logger       logger = LoggerFactory.getLogger(Day6.class);
-   private              List<String> inputData;
    private              List<Pool>   answerPool;
-   private              String       inputPath;
 
-   private class Pool {
-      int people;
-      int questions;
-      int answered;
+   private static class Pool {
+      int          people;
+      List<String> questions;
 
       Pool() {
          people = 0;
-         questions = 0;
-         answered = 0;
-      }
-   }
-
-   private static class Pool2 {
-      List<String> questions;
-      int          people;
-
-      Pool2() {
          questions = new ArrayList<>();
-         people = 0;
       }
    }
 
    public Day6(String filePath) {
-      inputPath = filePath;
+
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+         String line;
+         answerPool = new ArrayList<>();
+         Pool pool = new Pool();
+
+         while ((line = reader.readLine()) != null) {
+            if (line.equals("")) {
+               answerPool.add(pool);
+               pool = new Pool();
+            }
+            else {
+               ++pool.people;
+               pool.questions.add(line);
+            }
+         }
+         answerPool.add(pool);
+      }
+
+      catch (IOException ex) {
+         logger.error("Could not access the file {}", filePath);
+         ex.printStackTrace();
+      }
    }
 
    public List<String> solve() {
@@ -54,123 +64,68 @@ public class Day6 implements Day {
 
    @Override
    public String partA() {
-      StringBuilder result = new StringBuilder("Part A answer: ");
-      try (BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
-         String line;
-         answerPool = new ArrayList<>();
-         Pool          pool         = new Pool();
-         StringBuilder questionPool = new StringBuilder();
+      StringBuilder result   = new StringBuilder("Part A answer: ");
+      int           answered = 0;
 
-         while ((line = reader.readLine()) != null) {
-            if (line.equals("")) {
-               answerPool.add(pool);
-               pool = new Pool();
-               questionPool = new StringBuilder();
-            }
-            else {
-               ++pool.people;
-               for (int index = 0; index < line.length(); ++index) {
-                  if (!stringContains(questionPool, line.charAt(index))) {
-                     ++pool.questions;
-                     questionPool.append(line.charAt(index));
-                  }
-               }
-            }
-         }
-         answerPool.add(pool);
-      }
-      catch (IOException ex) {
-         logger.error("Could not access the file {}", inputPath);
-         ex.printStackTrace();
-      }
-
-      int answered = 0;
       for (Pool record : answerPool) {
-         answered += record.questions;
+         answered += questionCount(record);
       }
 
       return result.append(answered).toString();
    }
 
-   @Override
-   public String partB() {
-      StringBuilder result = new StringBuilder("Part B answer: ");
+   private int questionCount(Pool record) {
+      StringBuilder pool = new StringBuilder();
 
-      List<Pool2> poolList = new ArrayList<>();
-
-      loadPool(poolList);
-
-      int answer = countAnswers(poolList);
-      return result.append(answer).toString();
-   }
-
-   private <T> Set<T> intersection(Set<String> list1, List<String> list2) {
-      Set<T> list = new HashSet<>();
-
-      for (String t: list1) {
-         if (list2.contains(t)) {
-            list.add((T) t);
+      for (String question : record.questions) {
+         for (int index = 0; index < question.length(); ++index) {
+            if (!stringContains(pool, question.charAt(index))) {
+               pool.append(question.charAt(index));
+            }
          }
       }
-      return list;
+
+      return pool.length();
    }
 
-   private int countAnswers(List<Pool2> poolList) {
+   @Override
+   public String partB() {
+      return "Part B answer: " + countAnswers();
+   }
+
+   private int countAnswers() {
       int result = 0;
 
-
-      for (Pool2 record : poolList) {
-         Set<String> set = new HashSet<>();
-         int counter = 0;
-
-         for (String question : record.questions) {
-            List<String> str = new ArrayList<>();
-
-            for (int index = 0; index < question.length(); ++index) {
-               str.add(String.valueOf(question.charAt(index)));
-            }
-
-            if (record.people == 1) {
-               result += str.size();
-            }
-            else {
-               if (counter == 0) {
-                  set.addAll(str);
-                  ++counter;
-               } else {
-                  Set<String> set2 = new HashSet<>();
-                  set2.addAll(str);
-                  set = intersection(set, str);
-               }
-            }
-         }
-         result += set.size();
-         counter = 0;
+      for (Pool record : answerPool) {
+         result += getQuestionIntersectCount(record);
       }
 
       return result;
    }
-   private void loadPool(List<Pool2> poolList) {
-      try (BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
-         String line;
-         answerPool = new ArrayList<>();
-         Pool2 pool = new Pool2();
 
-         while ((line = reader.readLine()) != null) {
-            if (line.equals("")) {
-               poolList.add(pool);
-               pool = new Pool2();
+   private int getQuestionIntersectCount(Pool record) {
+      Set<String> set    = new HashSet<>();
+      boolean     first  = true;
+
+      for (String question : record.questions) {
+         List<String> str = getStringArray(question);
+
+         if (record.people == 1) {
+            set.addAll(str);
+         }
+         else {
+            if (first) {
+               set.addAll(str);
+               first = false;
             }
             else {
-               ++pool.people;
-               pool.questions.add(line);
+
+               Set<String> set2 = new HashSet<>(str);
+               set = intersection(set, set2);
             }
          }
-         poolList.add(pool);
       }
-      catch (IOException ex) {
-         logger.error("Could not access the file {}", inputPath);
-         ex.printStackTrace();
-      }
+
+      return set.size();
    }
 }
