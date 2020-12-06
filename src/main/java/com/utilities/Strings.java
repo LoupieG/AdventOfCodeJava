@@ -41,4 +41,16 @@ public class Strings {
 
       return result;
    }
+
+   public static String[][] initialize2dArray(int row, int col, char value) {
+      String[][] result = new String[row][col];
+
+      for (int rowId = 0; rowId < row; ++rowId) {
+         for (int colId = 0; colId < col; ++colId) {
+            result[rowId][colId] = String.valueOf(value);
+         }
+      }
+
+      return result;
+   }
 }

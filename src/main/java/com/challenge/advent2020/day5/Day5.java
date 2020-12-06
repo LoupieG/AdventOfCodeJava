@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.utilities.Strings.initialize2dArray;
+
 public class Day5 implements Day {
    private static final Logger       logger = LoggerFactory.getLogger(Day5.class);
    private              List<String> inputData;
@@ -44,7 +46,7 @@ public class Day5 implements Day {
       for (String boardingPass : inputData) {
          int seatId = (getRowId(boardingPass) * 8) + getColId(boardingPass);
 
-         maxId = (seatId > maxId) ? seatId : maxId;
+         maxId = Math.max(seatId, maxId);
       }
 
       return result.append(maxId).toString();
@@ -52,13 +54,7 @@ public class Day5 implements Day {
 
    @Override
    public String partB() {
-      String[][] seatingChart = new String[ROW_COUNT][SEAT_COUNT];
-
-      for (int rowid = 0; rowid < ROW_COUNT; ++rowid) {
-         for (int colid = 0; colid < SEAT_COUNT; ++colid) {
-            seatingChart[rowid][colid] = "x";
-         }
-      }
+      String[][] seatingChart = initialize2dArray(ROW_COUNT, SEAT_COUNT, 'x');
 
       for (String boardingPass : inputData) {
          int row = getRowId(boardingPass);
@@ -79,11 +75,11 @@ public class Day5 implements Day {
    }
 
    private int getRowId(String boardingPass) {
-      int result = 0;
+      //int result = 0;
       int rowCount = ROW_COUNT;
       int upperRow = ROW_COUNT - 1;
       int lowerRow = 0;
-      int midPoint = 1;
+      int midPoint;// = 1;
 
       for (int index = 0; index < 7; ++index) {
          if (boardingPass.charAt(index) == 'F') {
