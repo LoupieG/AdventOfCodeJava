@@ -6,6 +6,7 @@ import com.challenge.advent2020.day2.Day2;
 import com.challenge.advent2020.day3.Day3;
 import com.challenge.advent2020.day4.Day4;
 import com.challenge.advent2020.day5.Day5;
+import com.challenge.advent2020.day6.Day6;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -80,13 +81,24 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day5")
    public ResponseEntity<List<String>> day5() {
       String inputFile = "target/classes/inputs/day5input.txt";
-      //String inputFile = "target/classes/inputs/testData.txt";
       String filename = USER_DIR + inputFile;
       File   file     = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 5);
       }
       var problem = new Day5(inputFile);
+      return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
+   }
+
+   @GetMapping(value = "/day6")
+   public ResponseEntity<List<String>> day6() {
+      String inputFile = "target/classes/inputs/day6input.txt";
+      String filename = USER_DIR + inputFile;
+      File   file     = new File(filename);
+      if (!file.exists()) {
+         dataGrabber.getPuzzleInput(filename, 2020, 6);
+      }
+      var problem = new Day6(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 

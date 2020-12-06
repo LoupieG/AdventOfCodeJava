@@ -12,4 +12,8 @@ public class Strings {
 
       return matcher.matches();
    }
+
+   public static boolean stringContains(StringBuilder line, Character ch) {
+      return line.indexOf(ch.toString()) > -1;
+   }
 }
