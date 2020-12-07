@@ -53,4 +53,44 @@ public class Strings {
 
       return result;
    }
+
+   public static int wordCount(String line, String word) {
+      int result = 1;
+      String[] split = line.split(" ");
+
+      for (String s : split) {
+         if (s.equals(word)) {
+            ++result;
+         }
+      }
+      return result;
+   }
+
+   public static String[] splitOnWord(String line, String word) {
+      String[] result = new String[wordCount(line, word)];
+
+      String[] spaceSplit = line.split(" ");
+      int resultIndex = 0;
+      boolean pushed = false;
+
+      StringBuilder strPush = new StringBuilder();
+
+      for (String s : spaceSplit) {
+         if (s.equals(word)) {
+            result[resultIndex++] = strPush.toString();
+            strPush.delete(0, strPush.length());
+            pushed = true;
+         }
+         else {
+            strPush.append(" ").append(s);
+            pushed = false;
+         }
+      }
+
+      if (!pushed) {
+         result[resultIndex] = strPush.toString();
+      }
+
+      return result;
+   }
 }
