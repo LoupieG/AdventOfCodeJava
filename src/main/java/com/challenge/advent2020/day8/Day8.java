@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day8 implements Day {
-   private static final Logger       logger = LoggerFactory.getLogger(Day8.class);
-   private List<Code> inputCode;
+   private static final Logger     logger = LoggerFactory.getLogger(Day8.class);
+   private              List<Code> inputCode;
 
    public Day8(String filePath) {
 
@@ -37,7 +37,7 @@ public class Day8 implements Day {
 
    private static class Code {
       String instruction;
-      int value;
+      int    value;
    }
 
    public List<String> solve() {
@@ -60,7 +60,7 @@ public class Day8 implements Day {
 
       int accumulator = -1;
 
-      for (int index = 0; index < inputCode.size() && accumulator == -1 ; ++index) {
+      for (int index = 0; index < inputCode.size() && accumulator == -1; ++index) {
 
          inputCode.get(index).instruction = switchInstruction(inputCode.get(index).instruction);
          accumulator = executeCode(2);
@@ -88,8 +88,8 @@ public class Day8 implements Day {
       int           accumulator = 0;
       List<Integer> completed   = new ArrayList<>();
 
-      int     index    = 0;
-      boolean exit = false;
+      int     index = 0;
+      boolean exit  = false;
 
       while (!exit) {
 
