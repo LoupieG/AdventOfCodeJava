@@ -7,24 +7,14 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day8 implements Day {
    private static final Logger       logger = LoggerFactory.getLogger(Day8.class);
-   private              List<String> inputData;
    private List<Code> inputCode;
 
    public Day8(String filePath) {
-      try {
-         inputData = Files.readAllLines(Paths.get(filePath));
-      }
-      catch (IOException ex) {
-         logger.error("Could not access the file {}", filePath);
-         ex.printStackTrace();
-      }
 
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
          String line;
@@ -61,35 +51,7 @@ public class Day8 implements Day {
 
    @Override
    public String partA() {
-      StringBuilder result = new StringBuilder("Part A answer: ");
-
-      int accumulator = 0;
-      List<Integer> completed = new ArrayList<>();
-
-      int index = 0;
-
-      do {
-
-         completed.add(index);
-         String[] instruction = inputData.get(index).split(" ");
-
-         switch (instruction[0]) {
-            case "nop":
-               ++index;
-               break;
-            case "acc":
-               accumulator += Integer.parseInt(instruction[1]);
-               ++index;
-               break;
-            case "jmp":
-               index += Integer.parseInt(instruction[1]);
-               break;
-         }
-
-      } while (index <= inputData.size() && !completed.contains(index));
-
-
-      return result.append(accumulator).toString();
+      return "Part A answer: " + executeCode(1);
    }
 
    @Override
@@ -99,31 +61,37 @@ public class Day8 implements Day {
       int accumulator = -1;
 
       for (int index = 0; index < inputCode.size() && accumulator == -1 ; ++index) {
-         String instruction = inputCode.get(index).instruction;
-         if (instruction.equals("jmp")) {
-            inputCode.get(index).instruction = "nop";
-         } else if (instruction.equals("nop")) {
-            inputCode.get(index).instruction = "jmp";
-         }
 
-         accumulator = instructionSolve();
+         inputCode.get(index).instruction = switchInstruction(inputCode.get(index).instruction);
+         accumulator = executeCode(2);
 
-         if (instruction.equals("jmp")) {
-            inputCode.get(index).instruction = "jmp";
-         } else if (instruction.equals("nop")) {
-            inputCode.get(index).instruction = "nop";
-         }
+         inputCode.get(index).instruction = switchInstruction(inputCode.get(index).instruction);
       }
+
       return result.append(accumulator).toString();
    }
 
-   private int instructionSolve() {
+   private String switchInstruction(String instruction) {
+      String result = instruction;
+
+      if (instruction.equals("jmp")) {
+         result = "nop";
+      }
+      else if (instruction.equals("nop")) {
+         result = "jmp";
+      }
+
+      return result;
+   }
+
+   private int executeCode(int part) {
       int           accumulator = 0;
       List<Integer> completed   = new ArrayList<>();
 
       int     index    = 0;
+      boolean exit = false;
 
-      while (true) {
+      while (!exit) {
 
          completed.add(index);
 
@@ -140,12 +108,15 @@ public class Day8 implements Day {
                break;
          }
 
-         if (completed.contains(index) || index > inputCode.size()) {
-            accumulator = -1;
-            break;
+         if (part == 1 && (index <= inputCode.size() && completed.contains(index))) {
+            exit = true;
          }
-         if (index == inputCode.size()) {
-            break;
+         else if (part == 2 && (completed.contains(index) || index > inputCode.size())) {
+            accumulator = -1;
+            exit = true;
+         }
+         else if (part == 2 && index == inputCode.size()) {
+            exit = true;
          }
       }
 
