@@ -44,38 +44,32 @@ public class Day9 implements Day {
 
    @Override
    public String partA() {
-      StringBuilder result = new StringBuilder("Part A answer: ");
 
-      int lowIndex   = 0;
-      int upperIndex = RANGE - 1;
-
-      for (int index = RANGE; index < inputData.size(); ++index) {
-         if (!isSumOfRange(lowIndex++, upperIndex++, inputData.get(index))) {
-            result.append(inputData.get(index));
-            break;
-         }
-      }
-      return result.toString();
+      return "Part A answer: " + testValues(1);
    }
 
    @Override
    public String partB() {
-      StringBuilder result = new StringBuilder("Part B answer: ");
+
+      return "Part B answer: " + testValues(2);
+   }
+
+   private String testValues(int part) {
+      String result = "";
 
       int lowIndex   = 0;
       int upperIndex = RANGE - 1;
 
       for (int index = RANGE; index < inputData.size(); ++index) {
          if (!isSumOfRange(lowIndex++, upperIndex++, inputData.get(index))) {
-            result.append(findWeakness(inputData.get(index), index));
+            result = (part == 1) ? inputData.get(index).toString() : String.valueOf(findWeakness(inputData.get(index), index));
             break;
          }
       }
 
-      return result.toString();
+      return result;
    }
 
-   @SuppressWarnings("BooleanMethodIsAlwaysInverted")
    private boolean isSumOfRange(int low, int high, long value) {
       boolean result = false;
       for (int left = low; left < high && !result; ++left) {
