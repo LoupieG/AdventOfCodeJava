@@ -10,10 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.utilities.Numbers.getMaxFromRangedList;
+import static com.utilities.Numbers.getMinFromRangedList;
+
 public class Day9 implements Day {
-   private static final Logger       logger = LoggerFactory.getLogger(Day9.class);
+   private static final Logger     logger = LoggerFactory.getLogger(Day9.class);
    private              List<Long> inputData;
-   private static final int          RANGE  = 25;
+   private static final int        RANGE  = 25;
 
    public Day9(String filePath) {
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -43,7 +46,7 @@ public class Day9 implements Day {
    public String partA() {
       StringBuilder result = new StringBuilder("Part A answer: ");
 
-      int lowIndex = 0;
+      int lowIndex   = 0;
       int upperIndex = RANGE - 1;
 
       for (int index = RANGE; index < inputData.size(); ++index) {
@@ -59,7 +62,7 @@ public class Day9 implements Day {
    public String partB() {
       StringBuilder result = new StringBuilder("Part B answer: ");
 
-      int lowIndex = 0;
+      int lowIndex   = 0;
       int upperIndex = RANGE - 1;
 
       for (int index = RANGE; index < inputData.size(); ++index) {
@@ -86,50 +89,23 @@ public class Day9 implements Day {
    }
 
    private long findWeakness(long endValue, int indexMax) {
-     int endLower = 0;
-     int endUpper = 0;
+      int endLower = 0;
+      int endUpper = 0;
 
-     for (int index = 0; index < indexMax - 1 && (endLower == 0 && endUpper == 0); ++index) {
-        long sumValue = inputData.get(index);
+      for (int index = 0; index < indexMax - 1 && (endLower == 0 && endUpper == 0); ++index) {
+         long sumValue = inputData.get(index);
 
-        for (int next = index + 1; next < indexMax; ++next) {
-           sumValue += inputData.get(next);
+         for (int next = index + 1; next < indexMax; ++next) {
+            sumValue += inputData.get(next);
 
-           if (sumValue == endValue) {
-              endLower = index;
-              endUpper = next;
-              break;
-           }
-
-        }
-     }
-
-     return (getMax(endLower, endUpper) + getMin(endLower, endUpper));
-   }
-
-   private long getMax(int low, int high) {
-      long result = inputData.get(low);
-
-      for (int index = low + 1; index < high; ++index) {
-
-         if (inputData.get(index) > result) {
-            result = inputData.get(index);
+            if (sumValue == endValue) {
+               endLower = index;
+               endUpper = next;
+               break;
+            }
          }
       }
 
-      return result;
-   }
-
-   private long getMin(int low, int high) {
-      long result = inputData.get(low);
-
-      for (int index = low + 1; index < high; ++index) {
-
-         if (inputData.get(index) < result) {
-            result = inputData.get(index);
-         }
-      }
-
-      return result;
+      return (getMaxFromRangedList(endLower, endUpper, inputData) + getMinFromRangedList(endLower, endUpper, inputData));
    }
 }

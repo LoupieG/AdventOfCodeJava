@@ -35,8 +35,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day1")
    public ResponseEntity<List<String>> day1() {
       String inputFile = "target/classes/inputs/day1input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 1);
       }
@@ -47,8 +47,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day2")
    public ResponseEntity<List<String>> day2() {
       String inputFile = "target/classes/inputs/day2input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 2);
       }
@@ -59,8 +59,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day3")
    public ResponseEntity<List<String>> day3() {
       String inputFile = "target/classes/inputs/day3input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 3);
       }
@@ -72,8 +72,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day4")
    public ResponseEntity<List<String>> day4() {
       String inputFile = "target/classes/inputs/day4input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 4);
       }
@@ -84,8 +84,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day5")
    public ResponseEntity<List<String>> day5() {
       String inputFile = "target/classes/inputs/day5input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 5);
       }
@@ -96,8 +96,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day6")
    public ResponseEntity<List<String>> day6() {
       String inputFile = "target/classes/inputs/day6input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 6);
       }
@@ -120,10 +120,9 @@ public class Advent2020ApplicationController {
 
    @GetMapping(value = "/day8")
    public ResponseEntity<List<String>> day8() {
-      //String inputFile = "target/classes/inputs/testData.txt";
       String inputFile = "target/classes/inputs/day8input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 8);
       }
@@ -134,8 +133,8 @@ public class Advent2020ApplicationController {
    @GetMapping(value = "/day9")
    public ResponseEntity<List<String>> day9() {
       String inputFile = "target/classes/inputs/day9input.txt";
-      String filename = USER_DIR + inputFile;
-      File   file     = new File(filename);
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
       if (!file.exists()) {
          dataGrabber.getPuzzleInput(filename, 2020, 9);
       }
