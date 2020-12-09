@@ -17,6 +17,7 @@ public class Day9 implements Day {
    private static final Logger     logger = LoggerFactory.getLogger(Day9.class);
    private              List<Long> inputData;
    private static final int        RANGE  = 25;
+   private static final int        TEST  = 25;
 
    public Day9(String filePath) {
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
