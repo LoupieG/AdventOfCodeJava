@@ -75,6 +75,7 @@ public class Day9 implements Day {
       return result.toString();
    }
 
+   @SuppressWarnings("BooleanMethodIsAlwaysInverted")
    private boolean isSumOfRange(int low, int high, long value) {
       boolean result = false;
       for (int left = low; left < high && !result; ++left) {
