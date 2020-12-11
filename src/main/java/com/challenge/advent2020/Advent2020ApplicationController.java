@@ -2,6 +2,8 @@ package com.challenge.advent2020;
 
 import com.advent.datagrabber.DataGrabber;
 import com.challenge.advent2020.day1.Day1;
+import com.challenge.advent2020.day10.Day10;
+import com.challenge.advent2020.day11.Day11;
 import com.challenge.advent2020.day2.Day2;
 import com.challenge.advent2020.day3.Day3;
 import com.challenge.advent2020.day4.Day4;
@@ -139,6 +141,32 @@ public class Advent2020ApplicationController {
          dataGrabber.getPuzzleInput(filename, 2020, 9);
       }
       var problem = new Day9(inputFile);
+      return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
+   }
+
+   @GetMapping(value = "/day10")
+   public ResponseEntity<List<String>> day10() {
+      String inputFile = "target/classes/inputs/testData.txt";
+      //String inputFile = "target/classes/inputs/day10input.txt";
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
+      if (!file.exists()) {
+         dataGrabber.getPuzzleInput(filename, 2020, 10);
+      }
+      var problem = new Day10(inputFile);
+      return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
+   }
+
+   @GetMapping(value = "/day11")
+   public ResponseEntity<List<String>> day11() {
+      //String inputFile = "target/classes/inputs/testData.txt";
+      String inputFile = "target/classes/inputs/day11input.txt";
+      String filename  = USER_DIR + inputFile;
+      File   file      = new File(filename);
+      if (!file.exists()) {
+         dataGrabber.getPuzzleInput(filename, 2020, 11);
+      }
+      var problem = new Day11(inputFile);
       return new ResponseEntity<>(problem.solve(), HttpStatus.OK);
    }
 }

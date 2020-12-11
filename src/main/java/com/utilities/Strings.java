@@ -21,27 +21,49 @@ public class Strings {
       return line.indexOf(ch.toString()) > -1;
    }
 
+   /**
+    * Get the intersection of two sets
+    *
+    * @param list1 First set
+    * @param list2 Second set
+    * @param <T>   Set type Integer, String, etc...
+    * @return A set of values that occur in both input sets
+    */
    public static <T> Set<T> intersection(Set<T> list1, Set<T> list2) {
       Set<T> list = new HashSet<>();
 
-      for (T t : list1) {
-         if (list2.contains(t)) {
-            list.add(t);
+      for (T element : list1) {
+         if (list2.contains(element)) {
+            list.add(element);
          }
       }
       return list;
    }
 
-   public static List<String> getStringArray(String question) {
+   /**
+    * Convert a String into an Array of Strings
+    *
+    * @param string String to split/convert
+    * @return Resultant array of characters as String
+    */
+   public static List<String> getStringArray(String string) {
       List<String> result = new ArrayList<>();
 
-      for (int index = 0; index < question.length(); ++index) {
-         result.add(String.valueOf(question.charAt(index)));
+      for (int index = 0; index < string.length(); ++index) {
+         result.add(String.valueOf(string.charAt(index)));
       }
 
       return result;
    }
 
+   /**
+    * Create and initialize a 2d String array
+    *
+    * @param row   The number of rows
+    * @param col   The number of columns
+    * @param value The value to put in each element
+    * @return The initialized 2d array
+    */
    public static String[][] initialize2dArray(int row, int col, char value) {
       String[][] result = new String[row][col];
 
@@ -54,24 +76,38 @@ public class Strings {
       return result;
    }
 
+   /**
+    * Count the number of times a word occurs in a String
+    *
+    * @param line The string to count against
+    * @param word The word to find and count
+    * @return The number of occurrences of the word
+    */
    public static int wordCount(String line, String word) {
-      int result = 1;
-      String[] split = line.split(" ");
+      int      result = 0;
+      String[] split  = line.split(" ");
 
-      for (String s : split) {
-         if (s.equals(word)) {
+      for (String string : split) {
+         if (string.equals(word)) {
             ++result;
          }
       }
       return result;
    }
 
+   /**
+    * Split a String on a word
+    *
+    * @param line The string to split
+    * @param word The word(string) to split on
+    * @return The split string(s)
+    */
    public static String[] splitOnWord(String line, String word) {
-      String[] result = new String[wordCount(line, word)];
+      String[] result = new String[wordCount(line, word) + 1];
 
-      String[] spaceSplit = line.split(" ");
-      int resultIndex = 0;
-      boolean pushed = false;
+      String[] spaceSplit  = line.split(" ");
+      int      resultIndex = 0;
+      boolean  pushed      = false;
 
       StringBuilder strPush = new StringBuilder();
 
